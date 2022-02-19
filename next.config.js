@@ -1,9 +1,13 @@
 /** @type {import('next').NextConfig} */
-const isProd = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: isProd ? '/fuhqu.github.io/' : '',
+  // https://github.com/vercel/next.js/issues/21079
+  // Remove this workaround whenever the issue is fixed
+  images: {
+    loader: 'imgix',
+    path: '/',
+  },
 }
 
 module.exports = nextConfig
