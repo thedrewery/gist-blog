@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
+const isProd = process.env.NODE_ENV === 'production'
 
 const nextConfig = {
   reactStrictMode: true,
-  // https://github.com/vercel/next.js/issues/21079
-  // Remove this workaround whenever the issue is fixed
-  images: {
-    loader: 'imgix',
-    path: '',
-  },
+  /**
+   * Tell Next.js where the `public` folder is.
+   * Replace `nextjs-github-pages` with your Github repo project name.
+   */
+  assetPrefix: isProd ? '/fuhqu.github.io/' : '',
 }
 
 module.exports = nextConfig
