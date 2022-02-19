@@ -1,5 +1,8 @@
 name: Deploy to Github Pages
 
+env:
+  GH_AUTH: ${{ secrets.GH_AUTH }}
+
 on:
   push:
     branches:
