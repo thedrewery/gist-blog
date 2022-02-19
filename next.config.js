@@ -6,7 +6,7 @@ const nextConfig = {
   // Remove this workaround whenever the issue is fixed
   images: {
     loader: 'imgix',
-    path: '/',
+    path: '',
   },
 }
 
