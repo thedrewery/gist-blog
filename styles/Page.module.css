@@ -1,0 +1,31 @@
+.page {
+  min-height: 100vh;
+  /* min-width: 100vw; */
+  padding: 0 2rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem 0;
+  grid-area: nav;
+}
+
+.content {
+  max-width: 40rem;
+  margin: auto;
+  grid-area: content;
+}
+
+.footer {
+  grid-area: footer;
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-areas:
+    'nav'
+    'content'
+    'footer';
+}
