@@ -5,22 +5,18 @@ export const octokit = new Octokit({ auth: process.env.GH_AUTH })
 
 export type Gist = Endpoints['GET /gists/{gist_id}']['response']['data']
 
-export type File = {
-  filename: string
-  type: string
-  language: string
-  raw_url: string
-  size: number
-  truncated: boolean
-  content: string
+export type Metadata = {
+  title: string
+  location?: string
+  snippet?: string
+  tags?: string[]
 }
 
-export type Files = {
-  'meta.json': File
-  'content.md': File
+export type Post = Gist & {
+  metadata: Metadata
+  slug: string
+  html: string
 }
-
-export type Post = Gist & { files: Files }
 
 export type SiteMap = {
   about: Post
@@ -31,12 +27,9 @@ class Api {
   siteMap: SiteMap
 
   constructor() {
-    this.siteMap = { posts: {} } as SiteMap
-  }
-
-  getHtml = async (text: string) => {
-    const res = await octokit.request('POST /markdown', { text, mode: 'gfm' })
-    return res.data
+    this.siteMap = {
+      posts: {},
+    } as SiteMap
   }
 
   getSiteMap = async () => {
@@ -46,28 +39,41 @@ class Api {
     const gistsWithContent = await Promise.all(
       allGists
         .filter(gist => {
-          return Boolean(gist.files?.['meta.json']) && Boolean(gist.files?.['content.md'])
+          const fileNames = Object.keys(gist.files)
+          const hasMetadataFile = fileNames.find(file => file === 'meta.json')
+          const hasContentFile = fileNames.filter(file => file.endsWith('.md'))?.length === 1
+          return hasMetadataFile && hasContentFile
         })
         .map(gist => {
           return octokit.request('GET /gists/{gist_id}', { gist_id: gist.id })
         }),
     )
 
-    gistsWithContent.forEach(res => {
-      const post = res.data as Post
-      const files = post.files
-      const meta = files['meta.json'].content
-      const metadata = JSON.parse(meta)
-      const slug = metadata?.slug
+    for (const gist of gistsWithContent) {
+      const files = gist.data.files || {}
+      const metadataContent = files?.['meta.json']?.content
 
-      if (slug) {
-        if (slug === 'about') {
+      const fileNames = Object.keys(files)
+      const markdownFile = fileNames.find(file => file.endsWith('.md')) || ''
+      const markdownContent = files[markdownFile]?.content || ''
+
+      if (metadataContent && markdownContent) {
+        const html = await octokit.request('POST /markdown', { text: markdownContent, mode: 'gfm' })
+
+        const post: Post = {
+          ...gist.data,
+          html: html.data,
+          slug: markdownFile.slice(0, -3),
+          metadata: JSON.parse(metadataContent),
+        }
+
+        if (post.slug === 'about') {
           this.siteMap.about = post
         } else {
-          this.siteMap.posts[slug] = post
+          this.siteMap.posts[post.slug] = post
         }
       }
-    })
+    }
 
     return this.siteMap
   }

@@ -1,14 +1,21 @@
 .post {
-  padding-bottom: 1.5rem;
+  padding-bottom: 3rem;
 }
 
-.post:hover {
+.post:hover .title {
   text-decoration: underline;
 }
 
 .title {
-  line-height: 2;
   font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.snippet {
+  color: #8b949e;
+  font-size: 14px;
+  font-style: italic;
+  margin-bottom: 0.5rem;
 }
 
 .meta {

@@ -1,16 +1,19 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { Page } from '../../components'
+import { ArrowRight, Page } from '../../components'
+import styles from '../../styles/Post.module.css'
 import { api, Post } from '../../utils'
 
-const Post: NextPage<{ postId: string; contentHtml: string; slug: string }> = ({
-  postId,
-  contentHtml,
-}) => {
+const Post: NextPage<{ id: string; html: string }> = ({ id, html }) => {
   return (
     <Page title='fuhqu' description=''>
-      <div className='markdown-body' dangerouslySetInnerHTML={{ __html: contentHtml }} />
-      <div style={{ padding: '2rem 0', fontWeight: 600 }}>
-        <a href={`https://gist.github.com/${postId}`}>Leave a comment →</a>
+      <div
+        className='markdown-body'
+        style={{ whiteSpace: 'pre-wrap' }}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      <div className={styles.comment}>
+        <a href={`https://gist.github.com/${id}`}>Leave a comment</a>
+        <ArrowRight style={{ marginLeft: '0.5rem' }} />
       </div>
     </Page>
   )
@@ -32,13 +35,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const slug = typeof params?.slug === 'string' ? params.slug : ''
   const { posts } = await api.getSiteMap()
   const post = posts[slug]
-  const content = post.files['content.md'].content
-  const contentHtml = await api.getHtml(content)
 
   return {
     props: {
-      postId: post.id,
-      contentHtml,
+      id: post.id,
+      html: post.html,
     },
   }
 }
