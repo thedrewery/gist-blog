@@ -44,11 +44,16 @@ class Api {
 
   getSiteMap = async () => {
     const gists = await octokit.request('GET /gists', { per_page: 100 })
+    const allGists = gists.data || []
 
     const gistDetails = await Promise.all(
-      gists.data.map(gist => {
-        return octokit.request('GET /gists/{gist_id}', { gist_id: gist.id })
-      }),
+      allGists
+        .filter(gist => {
+          return gist.files?.['meta.json'] && gist.files?.['content.md']
+        })
+        .map(gist => {
+          return octokit.request('GET /gists/{gist_id}', { gist_id: gist.id })
+        }),
     )
 
     gistDetails.forEach(({ data }) => {
