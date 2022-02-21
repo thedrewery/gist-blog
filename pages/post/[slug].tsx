@@ -1,8 +1,8 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Page } from '../../components'
-import { api, GistModel } from '../../utils'
+import { api, Post } from '../../utils'
 
-const Post: NextPage<{ post: GistModel; contentHtml: string; slug: string }> = ({
+const Post: NextPage<{ post: Post; contentHtml: string; slug: string }> = ({
   post,
   contentHtml,
 }) => {
