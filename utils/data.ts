@@ -1,10 +1,7 @@
 import { Endpoints } from '@octokit/types'
-// import nock from 'nock'
 import { Octokit } from 'octokit'
 
 export const octokit = new Octokit({ auth: process.env.GH_AUTH })
-
-// nock('https://api.github.com').persist().get(/.*/).reply(200, {})
 
 export type Gist = Endpoints['GET /gists/{gist_id}']['response']['data']
 
@@ -57,21 +54,17 @@ class Api {
     )
 
     gistsWithContent.forEach(res => {
-      const data = res.data as Post
-      const files = data.files
+      const post = res.data as Post
+      const files = post.files
       const meta = files['meta.json'].content
-      const content = files['content.md'].content
+      const metadata = JSON.parse(meta)
+      const slug = metadata?.slug
 
-      if (meta && content) {
-        const metadata = JSON.parse(meta)
-        const slug = metadata?.slug
-
-        if (slug) {
-          if (slug === 'about') {
-            this.siteMap.about = data
-          } else {
-            this.siteMap.posts[slug] = data
-          }
+      if (slug) {
+        if (slug === 'about') {
+          this.siteMap.about = post
+        } else {
+          this.siteMap.posts[slug] = post
         }
       }
     })
