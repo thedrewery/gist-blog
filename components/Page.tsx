@@ -27,11 +27,11 @@ export const Page: React.FC<PageProps> = ({
         <nav className={styles.nav}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {isBackArrowVisible && <ArrowLeft style={{ marginRight: '0.5rem' }} />}
-            <Link href={`/`}>
-              <a>meinstein</a>
+            <Link href='/'>
+              <a className={styles.logo}>meinstein</a>
             </Link>
           </div>
-          <Link href={`/about`}>
+          <Link href='/about'>
             <a>about</a>
           </Link>
         </nav>

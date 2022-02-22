@@ -1,5 +1,5 @@
 .post {
-  padding-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .post:hover .title {
@@ -7,19 +7,19 @@
 }
 
 .title {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .snippet {
   color: #8b949e;
-  font-size: 14px;
-  font-style: italic;
-  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.75rem;
 }
 
 .meta {
   /* color and font size of GH MD footnotes */
   color: #8b949e;
-  font-size: 12px;
+  font-size: 0.75rem;
+  margin-top: 0.75rem;
 }

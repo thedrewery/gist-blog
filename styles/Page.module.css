@@ -1,7 +1,8 @@
 .page {
   min-height: 100vh;
-  /* min-width: 100vw; */
   padding: 0 2rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .nav {
@@ -9,14 +10,22 @@
   justify-content: space-between;
   padding: 2rem 0;
   grid-area: nav;
+  font-family: monospace;
 }
 
 .nav a:hover {
   text-decoration: underline;
 }
 
+.nav .logo {
+  color: #58a6ff;
+  background-color: rgba(56, 139, 253, 0.15);
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
 .content {
-  max-width: 40rem;
   margin: auto;
   grid-area: content;
 }
