@@ -1,35 +1,7 @@
-/* @import 'reset.css'; */
-
-html,
-body {
-  /* COPIED FROM GITHUB-MARKDOWN-DARK.CSS */
-  color-scheme: dark;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  margin: 0;
-  color: #c9d1d9;
-  background-color: #0d1117;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji';
-  font-size: 16px;
-  line-height: 1.5;
-  word-wrap: break-word;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ol,
-ul {
-  list-style: none;
-  list-style-type: none;
-}
-
 * {
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
+  /* Got this from Josh Comeau */
   line-height: calc(1em + 0.725rem);
 }

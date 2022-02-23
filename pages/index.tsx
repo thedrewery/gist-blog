@@ -1,29 +1,28 @@
 import type { GetStaticProps, NextPage } from 'next'
 import Link from 'next/link'
 import { Page } from '../components'
-import styles from '../styles/Home.module.css'
 import { api, formatDate } from '../utils'
 
 const Home: NextPage<{ posts: typeof api.siteMap.posts }> = props => {
   return (
     <Page title='fuhqu' description='' isBackArrowVisible={false}>
-      <ul>
+      <div role='list'>
         {Object.entries(props.posts).map(([slug, post]) => {
           return (
-            <li key={post.id} className={styles.post}>
+            <div key={post.id} style={{ marginBottom: '3rem' }} role='listitem'>
               <Link href={`/post/${slug}`}>
                 <a>
-                  <h3 className={styles.title}>{post.metadata.title}</h3>
-                  <p className={styles.snippet}>{post.metadata.snippet}</p>
-                  <p className={styles.meta}>
-                    {formatDate(post.created_at || '')} · {post.comments} comments
-                  </p>
+                  <h3>{post.metadata.title}</h3>
                 </a>
               </Link>
-            </li>
+              <p>{post.metadata.snippet}</p>
+              <small>
+                {formatDate(post.created_at || '')} · {post.comments} comments
+              </small>
+            </div>
           )
         })}
-      </ul>
+      </div>
     </Page>
   )
 }

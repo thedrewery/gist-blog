@@ -1,20 +1,14 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
-import { ArrowRight, Page } from '../../components'
-import styles from '../../styles/Post.module.css'
+import { Page } from '../../components'
 import { api, Post } from '../../utils'
 
 const Post: NextPage<{ id: string; html: string }> = ({ id, html }) => {
   return (
     <Page title='fuhqu' description=''>
-      <div
-        className='markdown-body'
-        style={{ whiteSpace: 'pre-wrap' }}
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-      <div className={styles.comment}>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <p>
         <a href={`https://gist.github.com/${id}`}>Leave a comment</a>
-        <ArrowRight style={{ marginLeft: '0.5rem' }} />
-      </div>
+      </p>
     </Page>
   )
 }

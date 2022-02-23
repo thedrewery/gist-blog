@@ -1,28 +1,16 @@
-.page {
-  min-height: 100vh;
-  padding: 0 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
 .nav {
   display: flex;
   justify-content: space-between;
   padding: 2rem 0;
   grid-area: nav;
-  font-family: monospace;
-}
-
-.nav a:hover {
-  text-decoration: underline;
 }
 
 .nav .logo {
-  color: #58a6ff;
-  background-color: rgba(56, 139, 253, 0.15);
+  font-family: monospace;
+  color: var(--color-accent-fg);
+  background-color: var(--color-accent-subtle);
   padding: 2px 6px;
   border-radius: 6px;
-  font-weight: 500;
 }
 
 .content {
@@ -32,11 +20,12 @@
 
 .footer {
   grid-area: footer;
+  min-height: 2rem;
 }
 
 .grid {
   display: grid;
-  gap: 2rem;
+  gap: 1rem;
   grid-template-columns: minmax(0, 1fr);
   grid-template-areas:
     'nav'
