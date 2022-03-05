@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
+import { useEffect } from 'react'
 import createPersistedState from 'use-persisted-state'
 import styles from '../styles/Page.module.css'
 import { BrightnessFill, MoonFill } from './icons'
@@ -10,9 +11,9 @@ type PageProps = {
   isBackArrowVisible?: boolean
 }
 
-type Theme = 'default' | 'light' | 'dark'
+type Scheme = 'default' | 'light' | 'dark'
 
-const THEME_MAP: Record<Theme, string> = {
+const COLOR_SCHEME_MAP: Record<Scheme, string> = {
   default:
     'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css',
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-dark.min.css',
@@ -20,10 +21,18 @@ const THEME_MAP: Record<Theme, string> = {
     'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css',
 }
 
-const useTheme = createPersistedState<Theme>('theme')
+const useColorScheme = createPersistedState<Scheme>('theme')
 
 export const Page: React.FC<PageProps> = ({ children, title, description }) => {
-  const [theme, setTheme] = useTheme('default')
+  const [colorScheme, setColorScheme] = useColorScheme('default')
+
+  // If set to default, figure out what system theme is and switch to that stylesheet.
+  useEffect(() => {
+    if (colorScheme === 'default') {
+      const mql = window.matchMedia('(prefers-color-scheme: dark)')
+      setColorScheme(mql.matches ? 'dark' : 'light')
+    }
+  }, [colorScheme, setColorScheme])
 
   return (
     <div
@@ -40,10 +49,10 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta name='description' content={description} />
           <link rel='icon' href='/favicon.ico' />
-          <link href={THEME_MAP[theme]} rel='stylesheet' />
+          <link href={COLOR_SCHEME_MAP[colorScheme]} rel='stylesheet' />
           {/* Preload these so immediately available should user toggle themes */}
-          <link rel='preload' href={THEME_MAP.light} as='style' />
-          <link rel='preload' href={THEME_MAP.dark} as='style' />
+          <link rel='preload' href={COLOR_SCHEME_MAP.light} as='style' />
+          <link rel='preload' href={COLOR_SCHEME_MAP.dark} as='style' />
         </Head>
         <div className={styles.grid}>
           <nav className={styles.nav}>
@@ -58,12 +67,13 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
                   <a className={styles.text}>about</a>
                 </Link>
               </samp>
-              {theme === 'dark' ? (
-                <button onClick={() => setTheme('light')} className={styles.themeBtn}>
+              {colorScheme === 'dark' && (
+                <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
                   <BrightnessFill />
                 </button>
-              ) : (
-                <button onClick={() => setTheme('dark')} className={styles.themeBtn}>
+              )}
+              {colorScheme === 'light' && (
+                <button onClick={() => setColorScheme('dark')} className={styles.themeBtn}>
                   <MoonFill />
                 </button>
               )}
