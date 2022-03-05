@@ -1,14 +1,23 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import { Page } from '../../components'
-import { api, Post } from '../../utils'
+import { api, formatDate, Post } from '../../utils'
 
-const Post: NextPage<{ id: string; html: string }> = ({ id, html }) => {
+const Post: NextPage<{ id: string; html: string; updatedAt: string; createdAt: string }> = ({
+  // id,
+  html,
+  updatedAt,
+  createdAt,
+}) => {
+  console.log(updatedAt)
   return (
     <Page title='fuhqu' description=''>
       <div dangerouslySetInnerHTML={{ __html: html }} />
-      <p>
-        <a href={`https://gist.github.com/${id}`}>Leave a comment</a>
-      </p>
+      <div style={{ marginTop: '3rem' }}>
+        <p>
+          <samp>Last updated: {formatDate(updatedAt || createdAt)}</samp>
+        </p>
+        {/* <a href={`https://gist.github.com/${id}`}>Leave a comment</a> */}
+      </div>
     </Page>
   )
 }
@@ -34,6 +43,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       id: post.id,
       html: post.html,
+      lastUpdated: post.updated_at,
+      createdAt: post.created_at,
     },
   }
 }

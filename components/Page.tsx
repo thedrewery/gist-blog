@@ -58,7 +58,7 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
           <nav className={styles.nav}>
             <code style={{ display: 'flex', alignItems: 'center' }}>
               <Link href='/'>
-                <a className='pl-c1'>meinstein</a>
+                <a>meinstein</a>
               </Link>
             </code>
             <div style={{ display: 'flex', alignItems: 'center' }}>
