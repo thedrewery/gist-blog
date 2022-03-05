@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import createPersistedState from 'use-persisted-state'
 import styles from '../styles/Page.module.css'
 import { Brightness, MoonFill } from './icons'
@@ -21,18 +21,16 @@ const COLOR_SCHEME_MAP: Record<Scheme, string> = {
     'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css',
 }
 
-const useColorScheme = createPersistedState<Scheme>('theme')
+const useColorScheme = createPersistedState<Scheme>('color-scheme')
 
 export const Page: React.FC<PageProps> = ({ children, title, description }) => {
   const [colorScheme, setColorScheme] = useColorScheme('default')
 
-  // If set to default, figure out what system theme is and switch to that stylesheet.
-  useEffect(() => {
-    if (colorScheme === 'default') {
-      const mql = window.matchMedia('(prefers-color-scheme: dark)')
-      setColorScheme(mql.matches ? 'dark' : 'light')
-    }
-  }, [colorScheme, setColorScheme])
+  // useEffect(() => {
+  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  //   const initialColorScheme = mediaQuery.matches ? 'dark' : 'light'
+  //   if (!colorScheme) setColorScheme(initialColorScheme)
+  // }, [colorScheme, setColorScheme])
 
   return (
     <div
@@ -49,10 +47,11 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta name='description' content={description} />
           <link rel='icon' href='/favicon.ico' />
-          <link href={COLOR_SCHEME_MAP[colorScheme]} rel='stylesheet' />
-          {/* Preload these so immediately available should user toggle themes */}
           <link rel='preload' href={COLOR_SCHEME_MAP.light} as='style' />
           <link rel='preload' href={COLOR_SCHEME_MAP.dark} as='style' />
+          {colorScheme === 'light' && <link rel='stylesheet' href={COLOR_SCHEME_MAP.light} />}
+          {colorScheme === 'dark' && <link rel='stylesheet' href={COLOR_SCHEME_MAP.dark} />}
+          {colorScheme === 'default' && <link rel='stylesheet' href={COLOR_SCHEME_MAP.default} />}
         </Head>
         <div className={styles.grid}>
           <nav className={styles.nav}>
