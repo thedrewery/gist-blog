@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-// import { useEffect } from 'react'
+import { useEffect } from 'react'
 import createPersistedState from 'use-persisted-state'
 import styles from '../styles/Page.module.css'
 import { Brightness, MoonFill } from './icons'
@@ -14,6 +14,7 @@ type PageProps = {
 type Scheme = 'default' | 'light' | 'dark'
 
 const COLOR_SCHEME_MAP: Record<Scheme, string> = {
+  // This stylesheet will use whatever the user's preferred color scheme is.
   default:
     'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown.min.css',
   dark: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-dark.min.css',
@@ -21,16 +22,16 @@ const COLOR_SCHEME_MAP: Record<Scheme, string> = {
     'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.1.0/github-markdown-light.min.css',
 }
 
-const useColorScheme = createPersistedState<Scheme>('color-scheme')
+const useColorScheme = createPersistedState<Scheme>('prefers-color-scheme')
 
 export const Page: React.FC<PageProps> = ({ children, title, description }) => {
   const [colorScheme, setColorScheme] = useColorScheme('default')
 
-  // useEffect(() => {
-  //   const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-  //   const initialColorScheme = mediaQuery.matches ? 'dark' : 'light'
-  //   if (!colorScheme) setColorScheme(initialColorScheme)
-  // }, [colorScheme, setColorScheme])
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const initialColorScheme = mediaQuery.matches ? 'dark' : 'light'
+    if (colorScheme === 'default') setColorScheme(initialColorScheme)
+  }, [colorScheme, setColorScheme])
 
   return (
     <div
