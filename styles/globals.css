@@ -5,3 +5,9 @@
   /* Got this from Josh Comeau */
   line-height: calc(1em + 0.725rem);
 }
+
+.markdown-body {
+  transition-property: background-color, color;
+  transition-duration: 350ms;
+  transition-timing-function: ease;
+}
