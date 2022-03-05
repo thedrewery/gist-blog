@@ -67,6 +67,12 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
                   <a className={styles.text}>about</a>
                 </Link>
               </samp>
+              {colorScheme === 'default' && (
+                <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
+                  {/* Placeholder while JS figures out whether to use dark or light. */}
+                  <div style={{ height: '1rem', width: '1rem' }} />
+                </button>
+              )}
               {colorScheme === 'dark' && (
                 <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
                   <BrightnessFill />
