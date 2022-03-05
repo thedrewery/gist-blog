@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useEffect } from 'react'
 import createPersistedState from 'use-persisted-state'
 import styles from '../styles/Page.module.css'
-import { BrightnessFill, MoonFill } from './icons'
+import { Brightness, MoonFill } from './icons'
 
 type PageProps = {
   title: string
@@ -75,12 +75,12 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
               )}
               {colorScheme === 'dark' && (
                 <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
-                  <BrightnessFill />
+                  <MoonFill />
                 </button>
               )}
               {colorScheme === 'light' && (
                 <button onClick={() => setColorScheme('dark')} className={styles.themeBtn}>
-                  <MoonFill />
+                  <Brightness />
                 </button>
               )}
             </div>

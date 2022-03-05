@@ -1,2 +1,2 @@
-export * from './BrightnessFill'
+export * from './Brightness'
 export * from './MoonFill'
