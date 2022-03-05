@@ -58,19 +58,19 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
           <nav className={styles.nav}>
             <code style={{ display: 'flex', alignItems: 'center' }}>
               <Link href='/'>
-                <a className={styles.text}>meinstein</a>
+                <a className='pl-c1'>meinstein</a>
               </Link>
             </code>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <samp style={{ marginRight: '1rem', fontSize: '85%' }}>
+              <samp style={{ marginRight: '1.25rem', fontSize: '85%' }}>
                 <Link href='/about'>
-                  <a className={styles.text}>about</a>
+                  <a>about</a>
                 </Link>
               </samp>
               {colorScheme === 'default' && (
                 <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
                   {/* Placeholder while JS figures out whether to use dark or light. */}
-                  <div style={{ height: '1rem', width: '1rem' }} />
+                  <div style={{ height: '1rem', width: '1rem', padding: '0 0.25rem' }} />
                 </button>
               )}
               {colorScheme === 'dark' && (

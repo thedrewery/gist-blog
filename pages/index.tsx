@@ -16,7 +16,7 @@ const Home: NextPage<{ posts: typeof api.siteMap.posts }> = props => {
                 </a>
               </Link>
               <p>{post.metadata.snippet}</p>
-              <small>
+              <small className='pl-c'>
                 {formatDate(post.created_at || '')} · {post.comments} comments
               </small>
             </div>
