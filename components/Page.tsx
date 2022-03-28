@@ -8,7 +8,6 @@ import { Brightness, MoonFill } from './icons'
 type PageProps = {
   title: string
   description: string
-  isBackArrowVisible?: boolean
 }
 
 type Scheme = 'default' | 'light' | 'dark'

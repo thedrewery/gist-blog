@@ -9,7 +9,7 @@ const Home: NextPage<{
   tags: typeof api.siteMap.tags
 }> = props => {
   return (
-    <Page title='fuhqu' description='' isBackArrowVisible={false}>
+    <Page title='fuhqu' description=''>
       <div className={styles.grid}>
         <div className={styles.content}>
           <h4>Recently Written</h4>
