@@ -37,12 +37,9 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
     <div
       // Required className when using github-markdown-css
       className='markdown-body'
-      style={{
-        minHeight: '100vh',
-        padding: '0 2rem',
-      }}
+      style={{ padding: '0 2rem' }}
     >
-      <div style={{ maxWidth: 860, margin: '0 auto' }}>
+      <div className={styles.page}>
         <Head>
           <title>{title}</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -55,40 +52,76 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
           {colorScheme === 'default' && <link rel='stylesheet' href={COLOR_SCHEME_MAP.default} />}
         </Head>
         <div className={styles.grid}>
-          <nav className={styles.nav}>
-            <code style={{ display: 'flex', alignItems: 'center' }}>
-              <Link href='/'>
-                <a>meinstein</a>
-              </Link>
-            </code>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <samp style={{ marginRight: '1.25rem', fontSize: '85%' }}>
+          <div className={styles['above-the-fold']}>
+            <nav className={styles.nav}>
+              <div>
+                <samp style={{ textDecoration: 'wavy overline', fontSize: '85%' }}>
+                  <Link href='/'>
+                    <a>meinstein</a>
+                  </Link>
+                </samp>
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {colorScheme === 'default' && (
+                  <div
+                    role='button'
+                    onClick={() => setColorScheme('light')}
+                    className={styles['color-scheme-btn']}
+                  >
+                    <div style={{ height: '1rem', width: '1rem', padding: '0 0.25rem' }} />
+                  </div>
+                )}
+                {colorScheme === 'dark' && (
+                  <div
+                    role='button'
+                    onClick={() => setColorScheme('light')}
+                    className={styles['color-scheme-btn']}
+                  >
+                    <MoonFill />
+                  </div>
+                )}
+                {colorScheme === 'light' && (
+                  <div
+                    role='button'
+                    onClick={() => setColorScheme('dark')}
+                    className={styles['color-scheme-btn']}
+                  >
+                    <Brightness />
+                  </div>
+                )}
+              </div>
+            </nav>
+            <main className={styles.content}>{children}</main>
+          </div>
+          <footer className={styles.footer}>
+            <span>
+              <samp style={{ textDecoration: 'wavy overline', fontSize: '85%' }}>
+                <Link href='/'>
+                  <a>home</a>
+                </Link>
+              </samp>
+            </span>
+            <span>
+              <samp style={{ margin: '0 1.25rem' }}>·</samp>
+            </span>
+            <span>
+              <samp style={{ textDecoration: 'wavy overline', fontSize: '85%' }}>
                 <Link href='/about'>
                   <a>about</a>
                 </Link>
               </samp>
-              {colorScheme === 'default' && (
-                <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
-                  {/* Placeholder while JS figures out whether to use dark or light. */}
-                  <div style={{ height: '1rem', width: '1rem', padding: '0 0.25rem' }} />
-                </button>
-              )}
-              {colorScheme === 'dark' && (
-                <button onClick={() => setColorScheme('light')} className={styles.themeBtn}>
-                  <MoonFill />
-                </button>
-              )}
-              {colorScheme === 'light' && (
-                <button onClick={() => setColorScheme('dark')} className={styles.themeBtn}>
-                  <Brightness />
-                </button>
-              )}
-            </div>
-          </nav>
-          <div>
-            <main className={styles.content}>{children}</main>
-          </div>
-          <footer className={styles.footer}></footer>
+            </span>
+            <span>
+              <samp style={{ margin: '0 1.25rem' }}>·</samp>
+            </span>
+            <span>
+              <samp style={{ textDecoration: 'wavy overline', fontSize: '85%' }}>
+                <Link href='/about'>
+                  <a>categories</a>
+                </Link>
+              </samp>
+            </span>
+          </footer>
         </div>
       </div>
     </div>

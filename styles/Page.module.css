@@ -1,14 +1,24 @@
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+}
+
+.above-the-fold {
+  min-height: 100vh;
+}
+
 .nav {
   display: flex;
   justify-content: space-between;
-  padding: 2rem 0;
-  grid-area: nav;
+  padding: 2rem 0 1rem 0;
 }
 
-.nav .themeBtn {
-  background: none;
-  background-color: none;
-  border: none;
+.color-scheme-btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,21 +26,11 @@
 }
 
 .content {
-  margin: auto;
-  grid-area: content;
+  padding: 1rem 0;
 }
 
 .footer {
-  grid-area: footer;
-  min-height: 2rem;
-}
-
-.grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    'nav'
-    'content'
-    'footer';
+  /* display: flex; */
+  /* justify-content: center; */
+  padding: 4rem 0;
 }

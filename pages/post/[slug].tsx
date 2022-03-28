@@ -3,18 +3,18 @@ import { Page } from '../../components'
 import { api, formatDate, Post } from '../../utils'
 
 const Post: NextPage<{ id: string; html: string; updatedAt: string; createdAt: string }> = ({
-  // id,
   html,
   updatedAt,
   createdAt,
 }) => {
-  console.log(updatedAt)
   return (
     <Page title='fuhqu' description=''>
       <div dangerouslySetInnerHTML={{ __html: html }} />
       <div style={{ marginTop: '3rem' }}>
         <p>
-          <samp>Last updated: {formatDate(updatedAt || createdAt)}</samp>
+          <samp style={{ fontSize: '85%' }}>
+            Last updated: {formatDate(updatedAt || createdAt)}
+          </samp>
         </p>
         {/* <a href={`https://gist.github.com/${id}`}>Leave a comment</a> */}
       </div>

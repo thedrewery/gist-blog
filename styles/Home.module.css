@@ -1,3 +1,34 @@
+.content {
+  grid-area: content;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    'content'
+    'sidebar';
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 650px) {
+  .grid {
+    gap: 4rem;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: 'content sidebar';
+  }
+}
+
 .post {
   margin-bottom: 3rem;
+}
+
+.sidebar code {
+  display: inline-block;
+  margin: 0 0.75rem 0.75rem 0;
 }

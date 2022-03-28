@@ -1,4 +1,5 @@
 import { Endpoints } from '@octokit/types'
+import countBy from 'lodash.countby'
 import { Octokit } from 'octokit'
 
 export const octokit = new Octokit({ auth: process.env.GH_AUTH })
@@ -20,6 +21,7 @@ export type Post = Gist & {
 
 export type SiteMap = {
   about: Post
+  tags: Record<string, number>
   posts: Record<string, Post>
 }
 
@@ -49,6 +51,8 @@ class Api {
         }),
     )
 
+    let tags: Array<string | undefined> = []
+
     for (const gist of gistsWithContent) {
       const files = gist.data.files || {}
       const metadataContent = files?.['meta.json']?.content
@@ -70,10 +74,13 @@ class Api {
         if (post.slug === 'about') {
           this.siteMap.about = post
         } else {
+          tags = tags.concat(post.metadata?.tags)
           this.siteMap.posts[post.slug] = post
         }
       }
     }
+
+    this.siteMap.tags = countBy(tags.filter(Boolean))
 
     return this.siteMap
   }
