@@ -56,7 +56,7 @@ export const Page: React.FC<PageProps> = ({ children, title, description }) => {
               <div>
                 <samp style={{ textDecoration: 'wavy overline', fontSize: '85%' }}>
                   <Link href='/'>
-                    <a>meinstein</a>
+                    <a>dpomatti</a>
                   </Link>
                 </samp>
               </div>
